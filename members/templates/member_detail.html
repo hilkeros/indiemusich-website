@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <a href="{% url 'members_list' %}" class="inline-flex items-center text-blue-600 hover:text-blue-700 transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Members
+    </a>
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-3xl font-bold mb-6">{{ member.name }}</h1>
+        
+        {% if member.website %}
+            <div class="mb-4">
+                <a href="{{ member.website }}" 
+                   target="_blank" 
+                   class="text-blue-600 hover:text-blue-800 hover:underline">
+                    {{ member.website }}
+                </a>
+            </div>
+        {% endif %}
+        
+        <div class="space-y-4">
+            {% if member.mastodon %}
+                <p class="flex items-center">
+                    <span class="font-medium mr-2">Mastodon:</span>
+                    <a href="https://{{ member.mastodon }}" 
+                       target="_blank" 
+                       class="text-blue-600 hover:text-blue-800 hover:underline">
+                        {{ member.mastodon }}
+                    </a>
+                </p>
+            {% endif %}
+            
+            {% if member.bluesky %}
+                <p class="flex items-center">
+                    <span class="font-medium mr-2">Bluesky:</span>
+                    <a href="{{ member.bluesky_url }}" 
+                       target="_blank" 
+                       class="text-blue-600 hover:text-blue-800 hover:underline">
+                        {{ member.bluesky }}
+                    </a>
+                </p>
+            {% endif %}
+            
+            {% if member.instagram %}
+                <p class="flex items-center">
+                    <span class="font-medium mr-2">Instagram:</span>
+                    <a href="{{ member.instagram_url }}" 
+                       target="_blank" 
+                       class="text-blue-600 hover:text-blue-800 hover:underline">
+                        {{ member.instagram }}
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8 text-center">Indiemusi.ch Members</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for member in members %}
+            <a href="{% url 'member_detail' member.slug %}" class="block">
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
+                    <h2 class="text-xl font-semibold mb-3">{{ member.name }}</h2>
+                    
+                    {% if member.website %}
+                    <div class="mb-4">
+                        <span class="text-blue-600">{{ member.website }}</span>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="space-y-2 text-gray-600">
+                        {% if member.mastodon %}
+                            <p class="flex items-center">
+                                <span class="font-medium mr-2">Mastodon:</span>
+                                <span class="text-blue-600">{{ member.mastodon }}</span>
+                            </p>
+                        {% endif %}
+                        
+                        {% if member.bluesky %}
+                            <p class="flex items-center">
+                                <span class="font-medium mr-2">Bluesky:</span>
+                                <span class="text-blue-600">{{ member.bluesky }}</span>
+                            </p>
+                        {% endif %}
+                        
+                        {% if member.instagram %}
+                            <p class="flex items-center">
+                                <span class="font-medium mr-2">Instagram:</span>
+                                <span class="text-blue-600">{{ member.instagram }}</span>
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        {% empty %}
+            <div class="col-span-full text-center text-gray-500">
+                <p class="text-lg">No verified members found.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

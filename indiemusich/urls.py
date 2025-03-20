@@ -17,9 +17,11 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from members.views import home
+from members.views import home, member_detail, members_list
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home, name="home_page"),
+    path("members/", members_list, name="members_list"),
+    path("members/<slug:slug>/", member_detail, name="member_detail"),
 ]
