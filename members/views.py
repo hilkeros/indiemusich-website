@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import MemberForm
@@ -25,6 +26,10 @@ def member_form(request):
             member = form.save(commit=False)
             member.verified = False  # New members start unverified
             member.save()
+            messages.success(
+                request,
+                "Thank you for registering, your submission will be verified by one of our admins soon.",
+            )
             return redirect("members_list")
     else:
         form = MemberForm()
