@@ -27,3 +27,11 @@ class MemberForm(forms.ModelForm):
             "bluesky": "Your Bluesky handle (optional), e.g. @username.bsky.social",
             "instagram": "Your Instagram handle (optional), e.g. @username",
         }
+
+
+def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    for field in self.fields.values():
+        field.help_text = (
+            f'<span class="text-sm text-gray-500 pb-4 block">{field.help_text}</span>'
+        )
