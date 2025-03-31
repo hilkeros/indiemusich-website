@@ -23,5 +23,39 @@
                 View Members
             </a>
         </div>
-    </div>
+
+        <h2 class="text-2xl font-bold my-12">First steps into new social media platforms</h2>
+        <p class="py-3">
+            As an alternative to the big tech platforms (Instagram, Facebook, Tiktok), there a two so called 'decentralised' ecosystems.
+            The first one is the Fediverse, with Mastodon as the biggest player, and the second one is the 'ATmosphere' ecosystem with Bluesky as the main actor. Both have their advantages and disadvantages.
+        </p>
+        <p class="py-3">
+            Mastodon is bit more difficult to get started. If you have limited capacity, we recommend to start with Bluesky.
+        </p
+        <ul class="list-disc list-outside pl-6 space-y-4 my-6">
+            <li class="ml-2">
+                Sign up for an account at <a href="https://bsky.app/" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline">Bluesky</a> or even skip to the next step to follow some accounts right away.
+            </li>
+            <li class="ml-2">
+                To start following some people from the Swiss music scene, have a look at the starter pack of <a href="https://bsky.app/starter-pack/hilk.eu/3li7cakyvzb2g" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline">Hilke</a>, <a href="https://bsky.app/starter-pack/ossupervisor.bsky.social/3li5hwgebpt2l" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline">One Sentence Supervisor</a> or <a href="https://bsky.app/starter-pack/negativewhite.com/3lbcvz7fnqa2d" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline">Negative White</a>. 
+                There is very handy 'Follow all' button. Hilke's starter pack mainly gathered the accounts from the other two starter packs and also created a feed, which is actually a list of accounts. 
+                To be added to this list, fill out the  <a href="{% url 'member_form' %}" class="text-blue-600 hover:text-blue-800 hover:underline">form on our website</a>.
+            </li>
+            <li class="ml-2">
+                Start posting your content. Our community will only grow if we start posting and interacting with each other. You can start with anncouncing your shows and releases. 
+                Take advantage of the fact that it is possible to post direct links on this platform.
+            </li>
+            <li class="ml-2">
+                Explore custom feeds that you find interesting and add them to your home screen.
+            </li>
+            <li class="ml-2">
+                If you are a bit more adventurous, you can start exploring Mastodon. Hilke is in the process of a setting up our own server for the Swiss music scene on Mastodon. 
+                If you don't want to wait, you can join the <a href="https://joinmastodon.org/" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline">Mastodon Social server</a>. It is a bit more difficult to find other people on Mastodon... <a href="{% url 'member_form' %}" class="text-blue-600 hover:text-blue-800 hover:underline">Registering via our form</a> can help.
+            </li>
+            <li class="ml-2">
+                If you are attached to the Instagram esthetic, you can try out <a href="https://bsky.app/profile/did:plc:24kqkpfy6z7avtgu3qg57vvl" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline">Flashes for Bluesky</a>.
+            </li>
+        </ul>
+        </p>
+
 {% endblock %}
