@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Resources | Indiemusi.ch{% endblock %}
+
+{% block content %}
+<div class="container mx-auto max-w-2xl px-4 py-10">
+    <h1 class="text-3xl font-bold mb-8 text-center">Resources & Useful Links</h1>
+    <ul class="space-y-6">
+        {% for link in links %}
+            <li class="bg-white rounded-lg shadow p-5 hover:shadow-lg transition-shadow">
+                <a href="{{ link.url }}" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline text-lg font-semibold">
+                    {{ link.link_text }}
+                </a>
+                {% if link.description %}
+                    <p class="text-gray-600 mt-2">{{ link.description }}</p>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li class="text-gray-500 text-center">No resources found.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

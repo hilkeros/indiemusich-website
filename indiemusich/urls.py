@@ -18,6 +18,7 @@ Including another URLconf
 from blog.views import post_detail, spotlight_post
 from django.contrib import admin
 from django.urls import path
+from links.views import links_list
 from members.views import home, member_detail, member_form, members_list
 
 urlpatterns = [
@@ -28,4 +29,5 @@ urlpatterns = [
     path("members/<slug:slug>/", member_detail, name="member_detail"),
     path("about/", spotlight_post, name="about_page"),
     path("blog/<slug:slug>/", post_detail, name="post_detail"),
+    path("resources/", links_list, name="links_list"),
 ]
