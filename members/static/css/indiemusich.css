@@ -1,0 +1,12 @@
+.prose a {
+    color: #2563eb; /* Tailwind blue-600 */
+    transition: color 0.2s;
+}
+.prose a:hover {
+    color: #1e40af; /* Tailwind blue-800 */
+    text-decoration: underline;
+}
+
+.prose p {
+    margin-bottom: 1.25rem; /* Tailwind mb-5 */
+}

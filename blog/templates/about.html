@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} | Indiemusi.ch{% endblock %}
+
+{% block content %}
+<div class="container mx-auto max-w-2xl px-4 py-10">
+     <h1 class="text-3xl font-bold mb-2">About</h1>
+
+    <div class="prose prose-lg max-w-none mb-32">
+        <p>Indiemusi.ch is a website started by <a href="https://hilk.eu" target="_blank">musician</a> and 'tech sis' Hilke.</p>
+        <p>
+            With a couple of friends from the music scene, Hilke formed an ad hoc group of people that wanted to organise something to discuss the state of affairs for musicians in the current politicial climate, and more particularly about the role of social media, an essential tool for musicians to be heard. 
+            They organised a couple of events to feel the temperature in the music community, to discuss and brainstorm about strategies and new ideas.
+        </p>
+        <p>
+            Hilke felt the need to gather some information around this on a website and what you see here is the result thereof. It is her aim to continue working on these topics by building more community and collaboration. However, all the ideas expressed here are her own and don't necessarily represent everyone that participated in the "Fighting Broligarchy" events. 
+    </div>
+    
+    <h1 class="text-3xl font-bold mb-2">{{ post.title }}</h1>
+    <p class="text-gray-500 text-sm mb-8">
+        {{ post.created_at|date:"F j, Y" }}
+    </p>
+    <div class="prose prose-lg max-w-none">
+        {{ post.formatted_content|safe }}
+    </div>
+    <div class="mt-8">
+        <a href="{% url 'home_page' %}" class="text-blue-600 hover:text-blue-800 hover:underline">&larr; Back to Home</a>
+    </div>
+</div>
+{% endblock %}
