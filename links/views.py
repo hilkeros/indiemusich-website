@@ -2,19 +2,23 @@
 
 from django.shortcuts import render
 
-from .models import Link  # Import the Link model we defined earlier
+from .models import LINK_CATEGORIES, Link
 
 
 def links_list(request):
-    """
-    View to display a list of all links.
-    """
-    # Retrieve all Link objects from the database, ordered by link_text as defined in the model's Meta.
-    # If you wanted a different order here, you could specify it, e.g., Link.objects.all().order_by('-created_at')
-    links = Link.objects.all().order_by("created_at")
+    atproto_links = Link.objects.filter(category=LINK_CATEGORIES["ATProto"]).order_by(
+        "created_at"
+    )
+    fediverse_links = Link.objects.filter(
+        category=LINK_CATEGORIES["Fediverse"]
+    ).order_by("created_at")
+    openweb_links = Link.objects.filter(category=LINK_CATEGORIES["Open Web"]).order_by(
+        "created_at"
+    )
 
-    # Pass the retrieved links to the template context
-    context = {"links": links}
-
-    # Render the link_list.html template, passing the links data to it
+    context = {
+        "atproto_links": atproto_links,
+        "fediverse_links": fediverse_links,
+        "openweb_links": openweb_links,
+    }
     return render(request, "resources.html", context)

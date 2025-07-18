@@ -2,6 +2,12 @@
 
 from django.db import models
 
+LINK_CATEGORIES = {
+    "ATProto": 0,
+    "Fediverse": 1,
+    "Open Web": 2,
+}
+
 
 class Link(models.Model):
     """
@@ -27,6 +33,11 @@ class Link(models.Model):
     )
     updated_at = models.DateTimeField(
         auto_now=True, help_text="The date and time when this link was last updated."
+    )
+    category = models.IntegerField(
+        choices=[(v, k) for k, v in LINK_CATEGORIES.items()],
+        default=LINK_CATEGORIES["ATProto"],
+        help_text="The category of the link (e.g., ATProto, Fediverse, Open Web).",
     )
 
     class Meta:
