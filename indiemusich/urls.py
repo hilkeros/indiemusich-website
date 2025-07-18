@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from blog.views import post_detail, spotlight_post
+from blog.views import post_detail, post_list, spotlight_post
 from django.contrib import admin
 from django.urls import path
 from links.views import links_list
@@ -28,6 +28,7 @@ urlpatterns = [
     path("members/form/", member_form, name="member_form"),
     path("members/<slug:slug>/", member_detail, name="member_detail"),
     path("about/", spotlight_post, name="about_page"),
+    path("blog/", post_list, name="post_list"),
     path("blog/<slug:slug>/", post_detail, name="post_detail"),
     path("resources/", links_list, name="links_list"),
 ]

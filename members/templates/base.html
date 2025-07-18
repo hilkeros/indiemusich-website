@@ -18,24 +18,30 @@
                         Indiemusi.ch
                     </a>
                 </div>
-                <div class="flex space-x-4">
-                    <a href="{% url 'home_page' %}" 
-                       class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">
-                        Home
-                    </a>
-                    <a href="{% url 'members_list' %}" 
-                       class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">
-                        Members
-                    </a>
-                     <a href="{% url 'links_list' %}" 
-                       class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">
-                        Resources
-                    </a>
-                     <a href="{% url 'about_page' %}" 
-                       class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">
-                        About
-                    </a>
+                <!-- Hamburger for mobile and menu toggle input -->
+                <div class="md:hidden flex items-center">
+                    <input id="menu-toggle" type="checkbox" class="hidden peer" />
+                    <label for="menu-toggle" class="cursor-pointer flex flex-col justify-center w-8 h-8">
+                        <span class="block w-8 h-1 bg-gray-700 mb-1 rounded transition-all"></span>
+                        <span class="block w-8 h-1 bg-gray-700 mb-1 rounded transition-all"></span>
+                        <span class="block w-8 h-1 bg-gray-700 rounded transition-all"></span>
+                    </label>
                 </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-4">
+                    <a href="{% url 'home_page' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Home</a>
+                    <a href="{% url 'members_list' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Members</a>
+                    <a href="{% url 'post_list' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Articles</a>
+                    <a href="{% url 'links_list' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Resources</a>
+                    <a href="{% url 'about_page' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">About</a>
+                </div>
+            </div>
+            <!-- Move the mobile menu here, as a sibling to the input -->
+            <div class="peer-checked:block hidden md:hidden mt-2" id="mobile-menu">
+                <a href="{% url 'home_page' %}" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Home</a>
+                <a href="{% url 'members_list' %}" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Members</a>
+                <a href="{% url 'links_list' %}" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Resources</a>
+                <a href="{% url 'about_page' %}" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">About</a>
             </div>
         </nav>
     </header>

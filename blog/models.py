@@ -5,6 +5,13 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 
+STATUS_CODES = {
+    "Draft": 0,
+    "Publish": 1,
+    "Listed": 2,
+    "Spotlight": 3,
+}
+
 
 class Post(models.Model):
     """
@@ -37,11 +44,10 @@ class Post(models.Model):
         auto_now=True, help_text="The date and time the post was last updated."
     )
 
-    # Status to differentiate between draft and published posts
-    STATUS_CHOICES = ((0, "Draft"), (1, "Publish"), (2, "Spotlight"))
+    STATUS_CHOICES = tuple((v, k) for k, v in STATUS_CODES.items())
     status = models.IntegerField(
         choices=STATUS_CHOICES,
-        default=0,
+        default=STATUS_CODES["Draft"],
         help_text="The publication status of the post (Draft or Publish).",
     )
 

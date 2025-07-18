@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Articles | Indiemusi.ch{% endblock %}
+
+{% block content %}
+<div class="container mx-auto max-w-2xl px-4 py-10">
+    <h1 class="text-3xl font-bold mb-8 text-center">Articles</h1>
+    <ul class="space-y-8">
+        {% for post in posts %}
+            <li class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
+                <a href="{% url 'post_detail' slug=post.slug %}" class="text-2xl font-semibold text-blue-600 hover:text-blue-800 hover:underline">
+                    {{ post.title }}
+                </a>
+                <p class="text-gray-500 text-sm mt-2 mb-4">
+                    {{ post.created_on|date:"F j, Y" }}
+                </p>
+                <div class="prose prose-lg max-w-none mb-2">
+                    {{ post.preview|safe }}
+                </div>
+                <a href="{% url 'post_detail' slug=post.slug %}" class="text-blue-600 hover:text-blue-800 hover:underline text-sm">
+                    Read more &rarr;
+                </a>
+            </li>
+        {% empty %}
+            <li class="text-gray-500 text-center">No posts found.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
