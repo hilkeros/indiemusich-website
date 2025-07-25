@@ -5,29 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Indiemusi.ch{% endblock %}</title>
-    <!-- Add any meta tags, CSS links, or other header elements here -->
-     <link rel="stylesheet" href="{% static 'css/indiemusich.css' %}">
+    <link rel="stylesheet" href="{% static 'css/indiemusich.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #menu-toggle-button:focus {
+            outline: 2px solid #2563eb;
+            outline-offset: 2px;
+        }
+    </style>
 </head>
 <body>
     <header class="bg-white shadow-md">
         <nav class="container mx-auto px-4">
+            <input id="menu-toggle-checkbox" type="checkbox" class="hidden peer" aria-hidden="true" tabindex="-1" />
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <a href="{% url 'home_page' %}" class="text-xl font-bold text-gray-800 hover:text-blue-600">
                         Indiemusi.ch
                     </a>
                 </div>
-                <!-- Hamburger for mobile and menu toggle input -->
                 <div class="md:hidden flex items-center">
-                    <input id="menu-toggle" type="checkbox" class="hidden peer" />
-                    <label for="menu-toggle" class="cursor-pointer flex flex-col justify-center w-8 h-8">
-                        <span class="block w-8 h-1 bg-gray-700 mb-1 rounded transition-all"></span>
-                        <span class="block w-8 h-1 bg-gray-700 mb-1 rounded transition-all"></span>
-                        <span class="block w-8 h-1 bg-gray-700 rounded transition-all"></span>
-                    </label>
+                    <button id="menu-toggle-button" class="menu-toggle-button flex flex-col justify-center w-8 h-8 focus:outline-none"
+                            aria-expanded="false" aria-controls="mobile-menu">
+                        <span class="sr-only">Open main menu</span> <span class="block w-8 h-1 bg-gray-700 mb-1 rounded transition-all transform origin-center" id="bar-1"></span>
+                        <span class="block w-8 h-1 bg-gray-700 mb-1 rounded transition-all" id="bar-2"></span>
+                        <span class="block w-8 h-1 bg-gray-700 rounded transition-all transform origin-center" id="bar-3"></span>
+                    </button>
                 </div>
-                <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-4">
                     <a href="{% url 'home_page' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Home</a>
                     <a href="{% url 'members_list' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Members</a>
@@ -36,16 +40,16 @@
                     <a href="{% url 'about_page' %}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">About</a>
                 </div>
             </div>
-            <!-- Move the mobile menu here, as a sibling to the input -->
-            <div class="peer-checked:block hidden md:hidden mt-2" id="mobile-menu">
+            
+            <div id="mobile-menu" class="peer-checked:block hidden md:hidden mt-2" role="navigation" aria-label="Mobile Navigation">
                 <a href="{% url 'home_page' %}" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Home</a>
                 <a href="{% url 'members_list' %}" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Members</a>
+                <a href="{% url 'post_list' %}" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Articles</a>
                 <a href="{% url 'links_list' %}" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Resources</a>
                 <a href="{% url 'about_page' %}" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">About</a>
             </div>
         </nav>
     </header>
-
     <main role="main">
         <div class="container mx-auto px-4">
             {% if messages %}
@@ -58,13 +62,67 @@
             </div>
             {% endif %}
             {% block content %}
-            <!-- Content goes here -->
             {% endblock %}
         </div>
     </main>
 
     <footer class="footer mt-auto py-3">
-        <!-- Your footer content here -->
-    </footer>
+        </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggleButton = document.getElementById('menu-toggle-button');
+            const menuToggleCheckbox = document.getElementById('menu-toggle-checkbox');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuLinks = mobileMenu.querySelectorAll('a');
+
+            // Function to update ARIA attributes and visually toggle the button
+            function updateMenuState() {
+                const isExpanded = menuToggleCheckbox.checked;
+                menuToggleButton.setAttribute('aria-expanded', isExpanded);
+                if (isExpanded) {
+                    menuToggleButton.querySelector('.sr-only').textContent = 'Close main menu';
+
+                    // Focus the first link in the mobile menu when it opens
+                    if (menuLinks.length > 0) {
+                        menuLinks[0].focus();
+                    }
+                } else {
+                    menuToggleButton.querySelector('.sr-only').textContent = 'Open main menu';
+                }
+            }
+
+            // Sync the button's state with the checkbox
+            menuToggleButton.addEventListener('click', function() {
+                menuToggleCheckbox.checked = !menuToggleCheckbox.checked;
+                updateMenuState();
+            });
+
+            // Handle keyboard navigation for the menu when open
+            mobileMenu.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && menuToggleCheckbox.checked) {
+                    menuToggleCheckbox.checked = false;
+                    updateMenuState();
+                    menuToggleButton.focus(); // Return focus to the toggle button
+                }
+            });
+
+            // Close menu if a link is clicked (optional, but common behavior)
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (menuToggleCheckbox.checked) {
+                        menuToggleCheckbox.checked = false;
+                        updateMenuState();
+                        // Focus is usually lost here, but if the page doesn't reload,
+                        // you might want to return focus to the toggle button.
+                        // However, clicking a link implies navigating, so focus will shift naturally.
+                    }
+                });
+            });
+
+            // Initialize the ARIA state on page load
+            updateMenuState();
+        });
+    </script>
 </body>
 </html>
