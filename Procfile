@@ -1,2 +1,1 @@
-release: python manage.py migrate && python manage.py collectstatic --noinput
-web: gunicorn indiemusich.wsgi
+web: python manage.py migrate && python manage.py collectstatic --noinput && gunicorn indiemusich.wsgi
